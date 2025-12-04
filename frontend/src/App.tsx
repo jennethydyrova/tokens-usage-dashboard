@@ -1,9 +1,10 @@
 import "./App.css";
+import { DashboardView } from "./views/DashboardView";
 
 function App() {
   return (
     <>
-      <p>Dashboard Placeholder</p>
+      <DashboardView />
     </>
   );
 }
