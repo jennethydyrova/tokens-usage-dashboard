@@ -20,8 +20,8 @@ Simple dashboard to track token usage with a FastAPI backend and React + Vite fr
 1. Clone the repository:
 
 ```bash
-git clone <your-repo-url>
-cd <parent-folder>
+git clone git@github.com:jennethydyrova/tokens-usage-dashboard.git
+cd credits-usage-dashboard
 ```
 
 2.  Build and start the app:
@@ -37,6 +37,8 @@ cd <parent-folder>
 I wanted to highlight a few decisions and trade-offs I made while building the dashboard, especially where time constraints shaped the final result:
 
 - **Endpoint typing**: The `/usage` endpoint isn’t fully typed with Pydantic response models. In a real project I’d make sure every endpoint has strict schemas for inputs and outputs, but I prioritized getting the feature working end-to-end first.
+
+- **Documentation**: In production code, I would add proper docstrings and documentation throughout the backend and frontend code to make it easier to maintain and onboard new developers.
 
 - **Date formatting**: I used a simple local formatter for dates. It works fine here, but if the project grew or needed more complex date handling, I would switch to something like Day.js or date-fns to avoid edge-case bugs and keep formatting consistent.
 

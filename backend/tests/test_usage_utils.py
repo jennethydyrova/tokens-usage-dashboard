@@ -5,12 +5,7 @@ from backend.app.usage.utils import calculate_credits_used, calculate_tokens
 import pytest
 
 BASE_MODEL_RATE = 40 
-
-import pytest
-from backend.app.usage.utils import calculate_tokens, calculate_credits_used
-
-BASE_MODEL_RATE = 40
-
+CHARS_PER_TOKEN = 4
 
 class TestCalculateTokens:
     """Test suite for calculate_tokens function."""
@@ -24,31 +19,31 @@ class TestCalculateTokens:
     def test_only_letters(self):
         """Should count letters correctly."""
         result = calculate_tokens("hello world")
-        expected = (5 + 5) / 4
+        expected = (5 + 5) / CHARS_PER_TOKEN
         assert result == expected
 
     def test_apostrophes_counted(self):
         """Should count apostrophes as part of words."""
         result = calculate_tokens("don't")
-        expected = 5 / 4
+        expected = 5 / CHARS_PER_TOKEN
         assert result == expected
 
     def test_hyphens_counted(self):
         """Should count hyphens as part of words."""
         result = calculate_tokens("well-done")
-        expected = 9 / 4 
+        expected = 9 / CHARS_PER_TOKEN
         assert result == expected
 
     def test_digits_ignored(self):
         """Digits should not count as word characters."""
         result = calculate_tokens("test123")
-        expected = 4 / 4
+        expected = 4 / CHARS_PER_TOKEN
         assert result == expected
 
     def test_special_characters_ignored(self):
         """Special characters should not count as word characters."""
         result = calculate_tokens("hello!!!")
-        expected = 5 / 4
+        expected = 5 / CHARS_PER_TOKEN
         assert result == expected
 
     def test_spaces_ignored(self):
@@ -66,15 +61,15 @@ class TestCalculateTokens:
     def test_mixed_content(self):
         """Should count letters only in mixed content."""
         result = calculate_tokens("hello123world!!!")
-        expected = 10 / 4
+        expected = 10 / CHARS_PER_TOKEN
         assert result == expected
 
     @pytest.mark.parametrize("message,expected", [
-        ("hello", 5 / 4),
-        ("don't", 5 / 4),
-        ("well-done", 9 / 4),
-        ("test!!!", 4 / 4),
-        ("user@email.com", 12 / 4),
+        ("hello", 5 / CHARS_PER_TOKEN),
+        ("don't", 5 / CHARS_PER_TOKEN),
+        ("well-done", 9 / CHARS_PER_TOKEN),
+        ("test!!!", 4 / CHARS_PER_TOKEN),
+        ("user@email.com", 12 / CHARS_PER_TOKEN),
     ])
     def test_parametrized_examples(self, message, expected):
         """Parametrized test for multiple examples."""
@@ -150,11 +145,11 @@ class TestCalculateCreditsUsed:
     def test_email_address(self):
         """Should count letters only in email addresses."""
         result = calculate_credits_used("user@email.com" * 100, BASE_MODEL_RATE)
-        expected = round((12 * 100 / 4 / 100) * BASE_MODEL_RATE, 2)
+        expected = round((12 * 100 / CHARS_PER_TOKEN / 100) * BASE_MODEL_RATE, 2)
         assert result == expected
 
     def test_mixed_content(self):
         """Should handle mixed letters, digits, and special characters."""
         result = calculate_credits_used("hello123world!!!", BASE_MODEL_RATE)
-        expected = round((10 / 4 / 100) * BASE_MODEL_RATE, 2)
+        expected = round((10 / CHARS_PER_TOKEN / 100) * BASE_MODEL_RATE, 2)
         assert result == expected

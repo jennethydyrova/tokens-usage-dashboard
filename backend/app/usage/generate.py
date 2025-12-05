@@ -3,11 +3,6 @@ from .utils import calculate_credits_used, safe_fetch_report
 
 BASE_MODEL_RATE = 40
 
-from typing import List
-from .utils import calculate_credits_used, safe_fetch_report
-
-BASE_MODEL_RATE = 40
-
 async def construct_usage_data(messages: List) -> List[dict]:
     usage_data = []
 
@@ -29,7 +24,8 @@ async def construct_usage_data(messages: List) -> List[dict]:
                 "credits_used": report.get("credit_cost"),
             })
         else:
-            credits_used = calculate_credits_used(message.get("text", ""), BASE_MODEL_RATE)
+            message_txt = message.get("text", "") 
+            credits_used = calculate_credits_used(message_txt, BASE_MODEL_RATE)
             usage_data.append({
                 "message_id": message["id"],
                 "timestamp": message["timestamp"],
