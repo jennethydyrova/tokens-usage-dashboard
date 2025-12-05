@@ -1,17 +1,24 @@
-[project]
-name = "backend"
+[tool.poetry]
+name = "token-usage-backend"
 version = "0.1.0"
-description = ""
-authors = [
-    {name = "jennethydyrova",email = "jennethydyrovaa@gmail.com"}
-]
-readme = "README.md"
-requires-python = ">=3.12"
-dependencies = [
-    "fastapi[standard] (>=0.123.8,<0.124.0)"
-]
+description = "The backend server for calculating token usage."
+authors = ["jennethydyrova <jennethydyrovaa@gmail.com>"]
+package-mode = false
 
+[tool.poetry.dependencies]
+python = ">=3.12"
+fastapi = {extras = ["standard"], version = "^0.123.8"}
+uvicorn = {extras = ["standard"], version = ">=0.38.0,<0.39.0"}
+httpx = "^0.28.1"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+[dependency-groups]
+dev = [
+    "pytest (>=9.0.1,<10.0.0)"
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["backend"]
+testpaths = ["backend/tests"]
