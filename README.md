@@ -20,7 +20,7 @@ Simple dashboard to track token usage with a FastAPI backend and React + Vite fr
 1. Clone the repository:
 
 ```bash
-git clone git@github.com:jennethydyrova/tokens-usage-dashboard.git
+git clone git@github.com:jennethydyrova/credits-usage-dashboard.git
 cd credits-usage-dashboard
 ```
 
