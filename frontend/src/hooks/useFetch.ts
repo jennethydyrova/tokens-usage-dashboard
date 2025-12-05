@@ -16,6 +16,7 @@ export const useFetch = <T = any>(url: string) => {
       return;
     }
 
+    // Flag to avoid setting state after the component has unmounted.
     let isCancelled = false;
 
     const fetchData = async () => {
@@ -39,6 +40,7 @@ export const useFetch = <T = any>(url: string) => {
     fetchData();
 
     return () => {
+      // Set the flag to true when the component unmounts to prevent memory leaks
       isCancelled = true;
     };
   }, [url]);
