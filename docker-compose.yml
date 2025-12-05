@@ -3,7 +3,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: token-usage-backend
+    container_name: credits-usage-backend
     ports:
       - "8000:8000"
     environment:
@@ -15,7 +15,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: token-usage-frontend
+    container_name: credits-usage-frontend
     ports:
       - "5173:5173"
     environment:
