@@ -16,11 +16,15 @@ const toSortOrder = (value: string | null): SortOrder => {
   return null;
 };
 
-// Alphabetically compares report names, treating null/undefined as empty strings
+/**
+ * Alphabetically compares report names, treating null/undefined as empty strings
+ */
 const compareReportName = (a: TableDataType, b: TableDataType) =>
   (a.reportName ?? "").localeCompare(b.reportName ?? "");
 
-// Numerically compares credit values for sorting
+/**
+ * Numerically compares credit values for sorting
+ */
 const compareCreditsUsed = (a: TableDataType, b: TableDataType) =>
   Number(a.creditsUsed) - Number(b.creditsUsed);
 
